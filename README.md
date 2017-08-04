@@ -1,6 +1,6 @@
 # ORFinder
 
-#Purpose
+# Purpose
 
 ORFinder allows scanning the internet to find SMTP services vulnerable to open relay attack.
 
