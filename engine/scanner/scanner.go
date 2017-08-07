@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"net"
-	"sync"
 	"time"
 
 	"github.com/fatih/color"
@@ -108,9 +107,9 @@ func inc(ip net.IP) {
 	}
 }
 
-// Function Scan(address string, wg *sync.WaitGroup)
+// Function Scan(address string)
 // Perform SYN scanning on a given IP range
-func Scan(address string, wg *sync.WaitGroup) {
+func Scan(address string) {
 	ip, ipnet, err := net.ParseCIDR(address)
 	if err != nil {
 		log.Fatal(err)
@@ -127,6 +126,4 @@ func Scan(address string, wg *sync.WaitGroup) {
 			}
 		}
 	}
-
-	wg.Done()
 }

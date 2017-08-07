@@ -34,11 +34,23 @@ func main() {
 
 	country := parser.Parse()
 	IPs := loader.Load(country)
+	tasks := make(chan string)
+
+	for i := 0; i < 100; i++ {
+		wg.Add(1)
+		go func() {
+			for task := range tasks {
+				scanner.Scan(task)
+			}
+			wg.Done()
+		}()
+	}
 
 	for i := len(IPs) - 1; i >= 0; i-- {
-		wg.Add(1)
-		go scanner.Scan(IPs[i], &wg)
+		tasks <- IPs[i]
 	}
+
+	close(tasks)
 
 	wg.Wait()
 }
